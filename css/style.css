@@ -14,6 +14,10 @@
 ---------------------------------------------------------------------------*/
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
 
+/*Google Fonts（読書ブログ用：見出しは明朝体、本文は丸ゴシック体）の読み込み
+---------------------------------------------------------------------------*/
+@import url("https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap");
+
 /*テンプレート専用cssファイルの読み込み
 ---------------------------------------------------------------------------*/
 @import url("animation.css");
@@ -21,6 +25,35 @@
 
 
 
+/*配色・フォントのデザイントークン（読書ブログ用に再設定）
+---------------------------------------------------------------------------
+--ink        : 表紙の革のようなインク色。headerや見出し、強調に使用。
+--ink-soft   : 本文の文字色。インクをやわらげた色。
+--paper      : ページ全体の背景色。古紙のような色味。
+--paper-card : カードやボックスの背景色。少し明るい紙色。
+--paper-deep : 見出しボックスなど、奥まった部分の紙色。
+--line       : 枠線・区切り線の色。
+--brass      : ボタンやリンクなどのメインアクセント。金箔文字のイメージ。
+--brass-light: brassを明るくした色。ホバー時などに使用。
+--wine       : 「NEW」タグなど、栞（しおり）の紐のような赤。
+--moss       : 「重要」タグなど、図書館の読書灯のような緑。
+--muted      : footer内の文字色など、控えめなグレー。
+--footer-ink : footer/footermenuの背景色。
+---------------------------------------------------------------------------*/
+:root {
+	--ink: #2b3447;
+	--ink-soft: #4a4f5c;
+	--paper: #f6f1e6;
+	--paper-card: #fffdf7;
+	--paper-deep: #efe7d4;
+	--line: #d8cfb9;
+	--brass: #b08c4f;
+	--brass-light: #e3cda0;
+	--wine: #93363c;
+	--moss: #3c6657;
+	--muted: #9a9486;
+	--footer-ink: #20262f;
+}
 
 
 /*全体の設定
@@ -31,12 +64,18 @@ html,body {
 }
 
 body {
-	font-family: "ヒラギノ丸ゴ Pro", "Hiragino Maru Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;	/*フォント種類*/
+	font-family: "Zen Maru Gothic", "ヒラギノ丸ゴ Pro", "Hiragino Maru Gothic Pro", "メイリオ", Meiryo, sans-serif;	/*フォント種類。読書ブログ向けに、やわらかい丸ゴシック体に変更。*/
 	-webkit-text-size-adjust: none;
-	background: #fff;	/*背景色*/
-	color: #666;		/*全体の文字色*/
+	background: var(--paper);	/*背景色。古紙のような色味に変更。*/
+	color: var(--ink-soft);		/*全体の文字色*/
 	line-height: 2;		/*行間*/
 	overflow-x: hidden;
+}
+
+/*見出し全般のフォント設定（明朝体）
+---------------------------------------------------------------------------*/
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Shippori Mincho", "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", serif;
 }
 
 /*リセット*/
@@ -68,7 +107,7 @@ section + section {
 /*リンクテキスト全般の設定
 ---------------------------------------------------------------------------*/
 a {
-	color: #666;	/*文字色*/
+	color: var(--ink-soft);	/*文字色*/
 	transition: 0.3s;
 }
 
@@ -89,7 +128,7 @@ a:hover {
 /*headerブロック
 ---------------------------------------------------------------------------*/
 header {
-	background: #efa900;	/*背景色*/
+	background: var(--ink);	/*背景色。表紙の革を思わせるインク色に変更。*/
 	color: #fff;		/*文字色*/
 	display: flex;		/*flexボックスを使う指定*/
 	justify-content: space-between;	/*並びかたの種類の指定*/
@@ -135,16 +174,16 @@ main h2 {
 main h2 span {
 	display: block;
 	font-size: 0.5em;	/*文字サイズ。親要素の0.5倍（半分）に。*/
-	color: #efa900;		/*文字色*/
+	color: var(--brass);		/*文字色。金箔の文字を思わせるアクセントカラーに変更。*/
 }
 
 /*mainブロック内のh3タグ*/
 main h3 {
 	padding: 5px 20px;		/*上下、左右への余白*/
 	margin: 0 0 20px;		/*上、左右、下に空けるスペース*/
-	background: #f7f7f7;	/*背景色*/
+	background: var(--paper-deep);	/*背景色*/
 	border-radius: 5px;		/*角を丸くする指定*/
-	border: 1px solid #ddd;	/*枠線の幅、線種、色*/
+	border: 1px solid var(--line);	/*枠線の幅、線種、色*/
 }
 
 /*mainブロックのpタグ*/
@@ -172,7 +211,7 @@ main p + p {margin-top: -10px;}
 	width: 100%;
 	height: 100%;
 	padding: 70px 0;	/*上下、左右へのブロック内の余白*/
-	background: rgba(0,0,0,0.9);		/*背景色。0,0,0は黒の事で0.9は色が90%出た状態の事。*/
+	background: rgba(20,24,32,0.92);		/*背景色。表紙のインク色を基準にした暗い半透明色。*/
 	animation: animation1 0.2s both;	/*animation.cssの、animation1を実行する。0.2sは0.2秒の事。*/
 	text-align: center;	/*内容をセンタリング*/
 	color: #fff;		/*文字色*/
@@ -201,7 +240,7 @@ main p + p {margin-top: -10px;}
 	display: flex;					/*flexボックスを使う指定*/
 	flex-direction: column;			/*子要素（３本バー）を縦並びにする*/
 	justify-content: space-between;	/*並びかたの種類の指定*/
-	background: rgba(0,0,0,0.5);	/*背景色*/
+	background: rgba(43,52,71,0.55);	/*背景色。インク色をベースにした半透明色。*/
 	border-radius: 50%;				/*円形にする*/
 }
 
@@ -238,7 +277,7 @@ main p + p {margin-top: -10px;}
 /*「最近チェックした情報」ブロック
 ---------------------------------------------------------------------------*/
 #check {
-	background: #f0f0f0;	/*背景色*/
+	background: var(--paper-deep);	/*背景色*/
 	padding: 2%;	/*ボックス内余白*/
 }
 
@@ -252,8 +291,8 @@ main p + p {margin-top: -10px;}
 ---------------------------------------------------------------------------*/
 /*ボックス全体の設定*/
 #footermenu {
-	background: #333;	/*背景色*/
-	color: #999;		/*文字色*/
+	background: var(--footer-ink);	/*背景色*/
+	color: var(--muted);		/*文字色*/
 	font-size: 0.7em;	/*文字サイズ*/
 	display: flex;		/*flexボックスを使う指定*/
 	justify-content: space-between;	/*並びかたの種類の指定*/
@@ -264,12 +303,12 @@ main p + p {margin-top: -10px;}
 /*ボックス内のリンクテキスト設定*/
 #footermenu a {
 	text-decoration: none;
-	color: #999;	/*文字色*/
+	color: var(--muted);	/*文字色*/
 }
 
 /*リンクテキストのマウスオン時*/
 #footermenu a:hover {
-	color: #ccc;	/*文字色*/
+	color: var(--brass-light);	/*文字色*/
 }
 
 /*ulタグ（メニューの列単位）*/
@@ -283,7 +322,7 @@ main p + p {margin-top: -10px;}
 /*title*/
 #footermenu .title {
 	font-weight: bold;		/*太字にする*/
-	color: #ccc;			/*文字色*/
+	color: var(--brass-light);			/*文字色*/
 	padding-bottom: 5px;	/*下に空けるスペース*/
 }
 
@@ -294,14 +333,14 @@ footer small {font-size: 100%;}
 
 footer {
 	font-size: 0.6em;		/*文字サイズ*/
-	background: #222;	/*背景色*/
-	color: #999;			/*文字色*/
+	background: #15191f;	/*背景色*/
+	color: var(--muted);			/*文字色*/
 	text-align: center;		/*内容をセンタリング*/
 	padding: 20px;			/*ボックス内の余白*/
 }
 
 /*リンクテキスト*/
-footer a {color: #999;text-decoration: none;}
+footer a {color: var(--muted);text-decoration: none;}
 
 /*著作部分*/
 footer .pr {display: block;}
@@ -341,7 +380,7 @@ footer .pr {display: block;}
 /*NEWアイコン*/
 #new .newicon {
 	display: inline-block;
-	background: #ff0000;	/*背景色*/
+	background: var(--wine);	/*背景色。栞の紐のような赤に変更。*/
 	color: #fff;			/*文字色*/
 	font-size: 0.8em;		/*文字サイズ*/
 	line-height: 1;
@@ -356,7 +395,7 @@ footer .pr {display: block;}
 	position: relative;
 }
 .mainimg img {
-	border-radius: 0% 0% 40% 0% / 0% 0% 50% 0%;	/*角丸の指定。スラッシュより前半は水平方向、後半は垂直方向。それぞれ左上、右上、右下、左下の順番。*/
+	border-radius: 0% 0% 40% 0% / 0% 0% 50% 0%;	/*角丸の指定。スラッシュより前半は水平方向、後半は垂直方向。それぞれ左上、右上、右下、左下の順番。本のページの角が少しめくれたような形に。*/
 	overflow: hidden;
 }
 
@@ -391,7 +430,7 @@ ul.slick-dots li button {
 
 /*buttonのアクティブ時（現在表示されている画像を示すボタン）*/
 ul.slick-dots li.slick-active button {
-	background: #efa900;	/*色*/
+	background: var(--brass);	/*色*/
 }
 
 
@@ -439,13 +478,13 @@ ul.slick-dots li.slick-active button {
 }
 .menu li a {
 	text-decoration: none;display: block;
-	border: 1px solid #ccc;	/*枠線の幅、線種、色*/
+	border: 1px solid var(--line);	/*枠線の幅、線種、色*/
 	border-radius: 30px;	/*角を丸くする指定。ある程度大きめな数字なら適当でOK。*/
 	padding: 0px 10px;		/*上下、左右へのボタン内の余白*/
-	background: #edf1da;	/*背景色*/
+	background: var(--paper-deep);	/*背景色*/
 }
 .menu li a:hover {
-	background: #fff;	/*マウスオン時の背景色*/
+	background: var(--paper-card);	/*マウスオン時の背景色*/
 }
 
 
@@ -464,10 +503,10 @@ ul.slick-dots li.slick-active button {
 	justify-content: space-between;	/*並びかたの種類の指定*/
 	margin-bottom: 30px;	/*ボックス同士の上下間に空けるスペース*/
 	padding: 10px;			/*ボックス内の余白*/
-	background: #fff;		/*背景色*/
+	background: var(--paper-card);		/*背景色*/
 	width: 48%;				/*幅*/
 	margin-right: 4%;		/*右側に空けるスペース*/
-	border: 1px solid #999;	/*枠線の幅、線種、色*/
+	border: 1px solid var(--line);	/*枠線の幅、線種、色*/
 	border-radius: 10px;	/*角丸のサイズ*/
 	overflow: hidden;		/*飛び出る要素があれば非表示にする*/
 	position: relative;		/*子要素でabsolute(絶対配置)を使うための指定*/
@@ -499,18 +538,18 @@ ul.slick-dots li.slick-active button {
 	line-height: 1.5;	/*行間を少し狭くする*/
 }
 
-/*名前*/
+/*名前（投稿者）*/
 .list p.name {
 	text-align: right;	/*名前を右寄せする*/
 }
 .list p.name::before {
 	font-family: "Font Awesome 5 Free";	/*Font Awesomeを使う指定*/
-	content: "\f2bd";	/*Font Awesomeで読み込むアイコンの指定*/
+	content: "\f304";	/*ペンのアイコン（投稿者・書き手を表す）*/
 	padding-right: 5px;	/*アイコンと名前の間に空ける余白*/
-	color: #f67777;		/*アイコンの色*/
+	color: var(--brass);		/*アイコンの色*/
 }
 
-/*調理時間アイコン*/
+/*読了時間アイコン*/
 .list .icon {
 	width: 40px;		/*幅*/
 	height: 40px;		/*高さ*/
@@ -537,24 +576,24 @@ ul.slick-dots li.slick-active button {
 }
 /*NEWアイコン*/
 .list .newicon {
-	background: #ff4343;	/*背景色*/
+	background: var(--wine);	/*背景色*/
 	color: #fff;			/*文字色*/
 }
 /*UPアイコン*/
 .list .up {
-	background: #4385ff;	/*背景色*/
+	background: var(--moss);	/*背景色*/
 	color: #fff;			/*文字色*/
 }
 
 
-/*レシピ詳細ページ（item.html）
+/*レビュー詳細ページ（item.html）
 ---------------------------------------------------------------------------*/
 /*h3見出し*/
 .recipe-img h3 {
 	background: transparent;	/*背景色を透明にする*/
 }
 
-/*レシピページのメイン画像*/
+/*レビューページのメイン画像（本の表紙画像など）*/
 .recipe-img {
 	float: left;	/*左にまわりこみ*/
 	width: 30%;		/*ブロック幅*/
@@ -565,21 +604,21 @@ ul.slick-dots li.slick-active button {
 	overflow: hidden;
 }
 
-/*レシピ文章ブロック*/
+/*感想文章ブロック*/
 .recipe {
 	float: right;	/*右にまわりこみ*/
 	width: 65%;		/*ブロック幅*/
 }
 
-/*レシピ文章の番号(ol)全体*/
+/*感想文章の番号(ol)全体*/
 .recipe ol {
 	list-style-position: inside;
 	padding-left: 0;
 }
 
-/*１レシピあたりの設定*/
+/*１項目あたりの設定*/
 .recipe ol li {
-	border: 1px solid #ccc;	/*枠線の幅、線種、色*/
+	border: 1px solid var(--line);	/*枠線の幅、線種、色*/
 	margin-bottom: 20px;	/*番号ごとのブロックの下に空けるスペース*/
 	border-radius: 10px;	/*角丸のサイズ*/
 	text-indent: -1.3em;	/*テキストインデント。文字サイズを変更すると複数行になった場合の左側がずれるかもしれないので、その際に微調整して下さい。*/
@@ -597,7 +636,7 @@ ul.slick-dots li.slick-active button {
 /*ポイント用の文字ブロック*/
 .point {
 	display: block;
-	color: #ff4343;	/*文字色*/
+	color: var(--wine);	/*文字色*/
 }
 .point::before {
 	font-family: "Font Awesome 5 Free";	/*Font Awesomeを使う指定*/
@@ -620,14 +659,14 @@ ul.slick-dots li.slick-active button {
 	margin-bottom: 20px;	/*下に空けるスペース*/
 	text-indent: -2em;				/*テキストのインデント。質問が複数行になった際に、テキストの冒頭を揃える為に設定しています。*/
 	padding: 5px 1em 5px 3em;		/*ボックス内の余白。ここを変更する場合、上のtext-indentも調整します。*/
-	border: 1px solid #ccc;		/*枠線の幅、線種、色*/
+	border: 1px solid var(--line);		/*枠線の幅、線種、色*/
 }
 
 /*アイコン（Font Awesome）*/
 .faq dt::before {
 	font-family: "Font Awesome 5 Free";	/*Font Awesomeを使う指定*/
 	content: "\f059";		/*使いたいアイコン名をここで指定。Font Awesomeに記載されています。詳しくは当テンプレートのマニュアルを読んで下さい。*/
-	color: #efa900;			/*アイコンの色*/
+	color: var(--brass);			/*アイコンの色*/
 	padding-right: 1em;		/*アイコンとテキストの間の余白*/
 }
 
@@ -650,9 +689,9 @@ ul.slick-dots li.slick-active button {
 .ta1 caption {
 	font-weight: bold;		/*太字に*/
 	padding: 10px 5px;		/*上下、左右へのボックス内の余白。基本的に数行下の「.ta1 th, .ta1 td」のpaddingと揃えておけばOKです。*/
-	border: 3px solid #efa900;	/*枠線の幅、線種、色*/
-	color: #efa900;			/*文字色*/
-	background: #fff;	/*背景色*/
+	border: 3px solid var(--ink);	/*枠線の幅、線種、色*/
+	color: var(--ink);			/*文字色*/
+	background: var(--paper-card);	/*背景色*/
 	font-size: 1.2em;		/*文字サイズ。親要素の1.2倍。*/
 	margin-bottom: 15px;	/*下に空けるスペース*/
 	border-radius: 5px;		/*角を丸くする指定*/
@@ -660,14 +699,14 @@ ul.slick-dots li.slick-active button {
 
 /*ta1テーブルブロック設定*/
 .ta1 {
-	border-top: 1px solid #ccc;	/*テーブルの一番上の線。幅、線種、色*/
+	border-top: 1px solid var(--line);	/*テーブルの一番上の線。幅、線種、色*/
 	width: 100%;
 	margin: 0 auto 30px;		/*最後の「30px」がテーブルの下に空けるスペースです*/
 }
 
 /*tr（１行分）タグ設定*/
 .ta1 tr {
-	border-bottom: 1px solid #ccc;	/*テーブルの下線。幅、線種、色*/
+	border-bottom: 1px solid var(--line);	/*テーブルの下線。幅、線種、色*/
 }
 
 /*th（左側）、td（右側）の共通設定*/
@@ -680,7 +719,7 @@ ul.slick-dots li.slick-active button {
 .ta1 th {
 	width: 30%;			/*幅*/
 	text-align: left;	/*左よせにする*/
-	background: #fafafa;
+	background: var(--paper-deep);
 }
 
 /*こだわりアイコンのフロート指定(CMS用)*/
@@ -698,7 +737,7 @@ ul.slick-dots li.slick-active button {
 /*ボタンの設定*/
 .pagetop a {
 	display: block;text-decoration: none;text-align: center;z-index: 99;
-	background: rgba(0,0,0,0.2);	/*背景色。0,0,0は黒の事で0.2は色が20%出た状態。*/
+	background: rgba(43,52,71,0.55);	/*背景色。インク色をベースにした半透明色。*/
 	position: fixed;	/*スクロールに追従しない(固定で表示)為の設定*/
 	right: 20px;		/*右からの配置場所指定*/
 	bottom: 20px;		/*下からの配置場所指定*/
@@ -716,7 +755,7 @@ ul.slick-dots li.slick-active button {
 	display: block;
 	text-decoration: none;
 	text-align: center;		/*中身をセンタリング*/
-	background: #efa900;	/*背景色*/
+	background: var(--brass);	/*背景色*/
 	color: #fff;			/*文字色*/
 	margin: 10px auto 0;	/*上、左右、下への、ボタンの外側に空けるスペース*/
 	border-radius: 5px;		/*角丸の指定*/
@@ -740,14 +779,14 @@ input[type="reset"].btn {
 ---------------------------------------------------------------------------*/
 .clear {clear: both;}
 .clearfix::after {content: "";display: block;clear: both;}
-.color-theme, .color-theme a {color: #efa900 !important;}
-.color-check, .color-check a {color: #f00 !important;}
+.color-theme, .color-theme a {color: var(--brass) !important;}
+.color-check, .color-check a {color: var(--wine) !important;}
 .c {text-align: center !important;}
 .ws {width: 95%;display: block;}
 .wl {width: 95%;display: block;}
 .mb30 {margin-bottom: 30px !important;}
-.look {display: inline-block;padding: 0px 10px;background: #666; color: #fff; border-radius: 3px;margin: 5px 0; word-break: break-all;}
-.look .color-check {color: #ffcc00 !important;}
+.look {display: inline-block;padding: 0px 10px;background: var(--ink); color: #fff; border-radius: 3px;margin: 5px 0; word-break: break-all;}
+.look .color-check {color: var(--brass-light) !important;}
 .small {font-size: 0.6em;}
 .large {font-size: 2.5em; letter-spacing: 0.1em;}
 .thumbnail {width: 70px;}
@@ -829,7 +868,7 @@ main {
 	margin: 0 0 10px;
 	font-weight: normal;	/*デフォルトの太字を標準にする*/
 	font-size: 1em;			/*文字サイズ*/
-	border: 1px solid #999;	/*枠線の幅、線種、色*/
+	border: 1px solid var(--line);	/*枠線の幅、線種、色*/
 	border-radius: 30px;	/*角を丸くする指定。大きければ適当で構いません。*/
 }
 
@@ -849,7 +888,7 @@ ul.submenu li a {
 
 /*マウスオンj時の背景色*/
 ul.submenu:not(.btn) li a:hover {
-	background: #f0f0f0;
+	background: var(--paper-deep);
 }
 
 
@@ -867,7 +906,7 @@ ul.submenu:not(.btn) li a:hover {
 #new dt span {
 	display: inline-block;	/*表示させる*/
 	width: 7.5em;			/*幅。7.5文字(em)分。*/
-	background: #b5b5b5;	/*背景色*/
+	background: var(--muted);	/*背景色*/
 	color: #fff;			/*文字色*/
 	font-size: 0.8em;		/*文字サイズを80%に。*/
 	text-align: center;		/*文字をセンタリング*/
@@ -878,14 +917,14 @@ ul.submenu:not(.btn) li a:hover {
 	border-radius: 30px;
 }
 
-/*icon-bg1設定。サンプルテンプレートでは「新作レシピ」と書いてあるマーク*/
+/*icon-bg1設定。サンプルテンプレートでは「新刊レビュー」と書いてあるマーク*/
 #new dt span.icon-bg1 {
-	background: #efa900;	/*背景色*/
+	background: var(--brass);	/*背景色*/
 }
 
 /*icon-bg2設定。サンプルテンプレートでは「重要」と書いてあるマーク*/
 #new dt span.icon-bg2 {
-	background: #0048ff;	/*背景色*/
+	background: var(--moss);	/*背景色*/
 }
 
 /*記事(dd)設定*/
